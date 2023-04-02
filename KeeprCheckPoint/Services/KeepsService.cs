@@ -22,18 +22,14 @@ namespace KeeprCheckPoint.Services;
         return keeps;
     }
 
-    internal Keep getKeepById(int id1, string id2)
-    {
-        throw new NotImplementedException();
-    }
-
     internal Keep UpdateKeep(Keep keepData)
     {
         Keep original = this.GetOne(keepData.id, keepData.creatorId);
+        if(keepData.creatorId != original.creatorId) throw new Exception($"thats not yours to edit");
         original.name = keepData.name == null ? original.name : keepData.name;
         original.description = keepData.description != null ? keepData.description : original.description;
         original.img = keepData.img != null ? keepData.img : original.img;
-        original.kept = keepData.kept != null ? keepData.kept : original.kept;
+        // original.kept = keepData.kept != null ? keepData.kept : original.kept;
         _repo.UpdateKeep(original);
         return original;
 

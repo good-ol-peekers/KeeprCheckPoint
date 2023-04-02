@@ -12,9 +12,9 @@ public Keep create(Keep keepData)
 {
     string sql = @"
     INSERT INTO Keep
-    (creatorId, name, description, img, views, kept)
+    (creatorId, name, description, img)
     VALUES
-    (@creatorId, @name, @description, @img, 1, 1);
+    (@creatorId, @name, @description, @img);
     SELECT LAST_INSERT_ID();
     ";
     int id = _db.ExecuteScalar<int>(sql, keepData);
@@ -37,9 +37,12 @@ public Keep create(Keep keepData)
         string sql = @"
         SELECT
         k.*,
+        COUNT(vk.id) AS kept,
         acct.*
         FROM Keep k 
-        JOIN accounts acct ON k.creatorId = acct.id;
+        LEFT JOIN VaultKeep vk ON k.id = vk.keepId
+        JOIN accounts acct ON k.creatorId = acct.id
+        GROUP BY k.id;
         ";
         List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, (keep, creator) => {
             keep.creator = creator;
@@ -54,10 +57,13 @@ public Keep create(Keep keepData)
         string sql = @"
         SELECT
         k.*,
+        COUNT(vk.id) AS kept,
         acct.*
         FROM Keep k
+        LEFT JOIN VaultKeep vk ON k.id = vk.keepId
         JOIN accounts acct ON k.creatorId = acct.id
-        WHERE k.id = @id;
+        WHERE k.id = @id
+        GROUP BY k.id;
         ";
         Keep keep = _db.Query<Keep, Profile, Keep>(sql, (k, profile) =>
         {
@@ -74,8 +80,7 @@ public Keep create(Keep keepData)
         SET
         name = @name,
         description = @description,
-        img = @img,
-        kept = @kept
+        img = @img
         WHERE id = @id;
         ";
         int rows = _db.Execute(sql, keepData);

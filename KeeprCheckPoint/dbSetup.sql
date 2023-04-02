@@ -24,6 +24,7 @@ FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ALTER TABLE Keep
 ADD COLUMN kept INT NOT NULL;
 
+
 INSERT INTO Keep
 (creatorId, name, description, img, views)
 VALUES
@@ -67,3 +68,29 @@ INSERT INTO VaultKeep
 (creatorId, vaultId, keepId)
 VALUES
 ("641ca377ca6451d6285435cb", 1, 5);
+
+SELECT
+k.*,
+COUNT(vk.id) AS kept
+FROM Keep k 
+LEFT JOIN VaultKeep vk ON k.id = vk.keepId
+WHERE k.id = 62;
+
+        SELECT
+        k.*,
+        COUNT(vk.id) AS kept,
+        acct.*
+        FROM Keep k 
+        LEFT JOIN VaultKeep vk ON k.id = vk.keepId
+        JOIN accounts acct ON k.creatorId = acct.id
+        GROUP BY k.id;
+
+                SELECT
+        k.*,
+        COUNT(vk.id) AS kept,
+        acct.*
+        FROM Keep k
+        LEFT JOIN VaultKeep vk ON k.id = vk.keepId
+        JOIN accounts acct ON k.creatorId = acct.id
+        WHERE k.id = 63
+        GROUP BY k.id;
