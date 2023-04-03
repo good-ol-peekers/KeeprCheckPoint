@@ -1,7 +1,9 @@
 <template>
-  <div v-if="keeps">
+  <div class="bricks">
     <div v-for="k in keeps">
-      <KeepCard :keep="k"/>
+      <div>
+        <KeepsCard :keep="k"/>
+      </div>
     </div>
   </div>
 </template>
@@ -12,8 +14,7 @@ import { onMounted, computed } from 'vue';
 import Pop from '../utils/Pop';
 import { keepsService} from '../services/KeepsService.js';
 import { AppState } from '../AppState';
-import { KeepCard } from '../components/KeepsCard.vue'
-
+import KeepsCard from '../components/KeepsCard.vue';
 export default {
   setup() {
 
@@ -34,10 +35,19 @@ export default {
       keeps: computed(() => AppState.keeps),
     }
   },
-  components: { KeepCard }
+  components: { KeepsCard }
 }
 </script>
 
 <style scoped lang="scss">
+  .bricks {
+    columns:30vh;
+    column-gap: .9em;
+
+    &>div{
+      margin-top: .9em;
+      display: inline-block;
+    }
+  }
   
 </style>
