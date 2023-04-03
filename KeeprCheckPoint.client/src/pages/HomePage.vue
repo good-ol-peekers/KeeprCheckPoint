@@ -6,8 +6,8 @@
 
 import { onMounted, computed } from 'vue';
 import Pop from '../utils/Pop';
-import { KeepsServices } from '../services/KeepsService.js';
-kee
+import { keepsService} from '../services/KeepsService.js';
+
 export default {
   setup() {
     onMounted(()=> {
@@ -15,7 +15,7 @@ export default {
     })
     async function GetAllKeeps(){
       try {
-        await KeepsServices.GetAllKeeps()
+        await keepsServices.GetAllKeeps()
       } catch (error) {
         Pop.error(error.message)
       }
