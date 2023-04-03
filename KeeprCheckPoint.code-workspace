@@ -12,10 +12,6 @@
     {
       "path": ".github/workflows",
       "name": "workflows"
-    },
-    {
-      "name": "KeeprCheckPoint",
-      "path": "."
     }
   ],
   "settings": {

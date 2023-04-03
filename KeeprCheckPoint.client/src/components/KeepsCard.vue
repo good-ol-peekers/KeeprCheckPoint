@@ -13,7 +13,6 @@
 
 <script>
 
-import { AppState } from '../AppState';
 
 export default {
     props: { keep: { type: Object, required: true, } },
@@ -52,6 +51,5 @@ export default {
     background-size: cover;
     box-shadow: 5px 5px 5px black;
     border-radius: 5%;
-    // border: 5px solid rgb(0, 0, 0);
 }
 </style>
