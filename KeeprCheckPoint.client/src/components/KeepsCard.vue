@@ -1,23 +1,44 @@
 <template>
-    <div class="hero-image">
-        <img class="img-fluid backgroundimg" :src="keep.img" alt="">
+
+        <div  data-bs-toggle="modal" data-bs-target="#exampleModal" class="hero-image">
+
+            <img class="img-fluid backgroundimg" :src="keep.img" alt="">
 
 
-        <div class="fs-5 textStyle">{{ keep.name }}</div>
-        <img class="imageStyle img-fluid" :src="keep.creator.picture" alt="">
+            <div class="fs-5 textStyle">{{ keep.name }}</div>
+            <img class="imageStyle img-fluid" :src="keep.creator.picture" alt="">
 
 
-    </div>
+        </div>
 </template>
 
 
 <script>
+// import { computed } from 'vue';
+
+// import { keepsService } from '../services/KeepsService';
+// import Pop from '../utils/Pop';
+
+// import { AppState } from '../AppState';
+
+
 
 
 export default {
     props: { keep: { type: Object, required: true, } },
     setup() {
         return {
+            // activeKeep: computed(() => AppState.keeps.find(keep.id)),
+
+            // async GetKeepByID(id) {
+            //     try {
+            //         // let id = this.activeKeep.id
+            //         await keepsService.GetKeepByID(id)
+            //     } catch (error) {
+            //         Pop.error(error.message)
+                    
+            //     }
+            // }
         }
     }
 }
@@ -33,9 +54,11 @@ export default {
     transform: translate(-120%, 10%);
 
 }
-.backgroundimg{
+
+.backgroundimg {
     border-radius: 5%;
 }
+
 .textStyle {
     // text-align: end;
     text-shadow: 5px 5px 5px black;
