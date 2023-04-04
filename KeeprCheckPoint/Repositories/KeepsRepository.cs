@@ -73,6 +73,17 @@ public Keep create(Keep keepData)
         return keep;
     }
 
+    internal List<Keep> getProfilesKeeps(string id)
+    {
+        string sql = @"
+        SELECT
+        *
+        FROM Keep k
+        WHERE k.creatorId = @id
+        ";
+        return _db.Query<Keep>(sql, new { id }).ToList();
+    }
+
     internal int UpdateKeep(Keep keepData)
     {
         string sql = @"

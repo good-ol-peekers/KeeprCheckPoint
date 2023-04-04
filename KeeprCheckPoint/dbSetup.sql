@@ -14,21 +14,21 @@ CREATE TABLE IF NOT EXISTS Keep(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 creatorId VARCHAR(255) NOT NULL,
 name VARCHAR(255) NOT NULL,
-description VARCHAR(255) NOT NULL,
-img VARCHAR(255) NOT NULL,
-views INT NOT NULL,
+description TEXT NOT NULL,
+img TEXT NOT NULL,
+views INT NOT NULL DEFAULT 0,
 
 FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
-ALTER TABLE Keep
-ADD COLUMN kept INT NOT NULL;
+-- ALTER TABLE Keep
+-- ADD COLUMN kept INT NOT NULL;
 
 
-INSERT INTO Keep
-(creatorId, name, description, img, views)
-VALUES
-("641ca377ca6451d6285435cb", "big house", "beautiful house!", "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YmVhdXRpZnVsJTIwaG9tZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60", 5 );
+-- INSERT INTO Keep
+-- (creatorId, name, description, img, views)
+-- VALUES
+-- ("641ca377ca6451d6285435cb", "big house", "beautiful house!", "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YmVhdXRpZnVsJTIwaG9tZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60", 5 );
 
 CREATE TABLE IF NOT EXISTS Vault(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -43,18 +43,15 @@ Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 
 
 
-DROP TABLE Vault;
-
-
-INSERT INTO Vault
-(creatorId, name, description, img)
-VALUES
-("641ca377ca6451d6285435cb", "manifestations", "attract amazing things", "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80");
+-- INSERT INTO Vault
+-- (creatorId, name, description, img)
+-- VALUES
+-- ("641ca377ca6451d6285435cb", "manifestations", "attract amazing things", "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80");
 
 
 
 CREATE TABLE IF NOT EXISTS VaultKeep(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 creatorId VARCHAR(255) NOT NULL,
 vaultId INT NOT NULL,
 keepId INT NOT NULL,
@@ -102,3 +99,30 @@ WHERE k.id = 62;
         FROM Vault v
         JOIN accounts acct ON v.creatorId = acct.id
         WHERE acct.id = '63ff8ac3c39301e47e7784ee';
+
+
+
+
+        
+        SELECT
+        *
+        FROM Keep k
+        WHERE k.creatorId = '63ff8ac3c39301e47e7784ee'
+        ;
+
+        SELECT 
+        vk.*,
+        acct.*,
+        k.*,
+        v.*
+        FROM VaultKeep vk
+        JOIN accounts acct ON vk.creatorId = acct.id
+        JOIN Keep k ON vk.keepId = k.id
+        JOIN Vault v ON vk.vaultId = v.id
+        WHERE vk.vaultId = '49';
+
+
+
+DROP table `VaultKeep`;
+DROP table `Vault`;
+DROP table `Keep`;

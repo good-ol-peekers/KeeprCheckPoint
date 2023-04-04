@@ -13,15 +13,16 @@ namespace KeeprCheckPoint.Models;
 
     public string img { get; set; }
 
-    public int? views { get; set; } = 0;
+    public int views { get; set; } = 0;
 
-    public int? kept { get; set; } = 0;
+    public int kept { get; set; } = 0;
 
     // public int? vaultKeepId { get; set; }
 
 }  
 public class KeepInVault : Keep {
 public int? vaultKeepId { get; set; }
+public Boolean? isPrivate { get; set; }
 }
 
 

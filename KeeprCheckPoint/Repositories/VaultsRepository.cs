@@ -42,16 +42,19 @@ namespace KeeprCheckPoint.Repositories;
         SELECT 
         vk.*,
         acct.*,
-        k.*
+        k.*,
+        v.*
         FROM VaultKeep vk
         JOIN accounts acct ON vk.creatorId = acct.id
         JOIN Keep k ON vk.keepId = k.id
+        JOIN Vault v ON vk.vaultId = v.id
         WHERE vk.vaultId = @id;
         ";
-        List<KeepInVault> keeps = _db.Query<VaultKeep, Account, KeepInVault, KeepInVault>(sql, (vk, prof, k) =>
+        List<KeepInVault> keeps = _db.Query<VaultKeep, Account, KeepInVault, Vault, KeepInVault>(sql, (vk, prof, k, v) =>
         {
             k.creator = prof;
             k.vaultKeepId = vk.id;
+            k.isPrivate = v.isPrivate;
             return k;
         }, new { id }).ToList();
         return keeps;
@@ -72,6 +75,17 @@ namespace KeeprCheckPoint.Repositories;
             return vault;
         },new {id} ).ToList();
         return vaults;
+    }
+
+    internal List<Vault> getProfilesVaults(string id)
+    {
+        string sql = @"
+        SELECT
+        *
+        FROM Vault v
+        WHERE v.creatorId = @id
+        ";
+        return _db.Query<Vault>(sql, new { id }).ToList();
     }
 
     internal Vault GetVaultById(int id)

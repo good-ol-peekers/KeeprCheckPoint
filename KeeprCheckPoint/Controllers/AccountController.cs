@@ -30,6 +30,25 @@ public class AccountController : ControllerBase
     }
   }
 
+  [HttpPut]
+  [Authorize]
+  public async Task<ActionResult<Account>> editAccount([FromBody] Account editData)
+  {
+    try 
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      string userEmail = userInfo.Email;
+      Account account = _accountService.Edit(editData, userEmail);
+      return Ok(account);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+
+
   [HttpGet("{vaults}")]
   [Authorize]
   public async Task<ActionResult<List<Vault>>> getMyVaults()

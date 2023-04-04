@@ -18,7 +18,8 @@ public class AccountsRepository
   internal Account GetById(string id)
   {
     string sql = "SELECT * FROM accounts WHERE id = @id";
-    return _db.QueryFirstOrDefault<Account>(sql, new { id });
+    Account account = _db.QueryFirstOrDefault<Account>(sql, new { id });
+    return account;
   }
 
   internal Account Create(Account newAccount)
@@ -39,6 +40,7 @@ public class AccountsRepository
             SET 
               name = @Name,
               picture = @Picture
+              coverImg = @coverImg
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;

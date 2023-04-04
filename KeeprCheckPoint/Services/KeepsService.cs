@@ -22,7 +22,7 @@ namespace KeeprCheckPoint.Services;
         return keeps;
     }
 
-    internal Keep UpdateKeep(Keep keepData)
+    internal Keep UpdateKeep(Keep keepData, string userId)
     {
         Keep original = this.GetOne(keepData.id, keepData.creatorId);
         if(keepData.creatorId != original.creatorId) throw new Exception($"thats not yours to edit");
@@ -51,5 +51,12 @@ namespace KeeprCheckPoint.Services;
         if (keep.creatorId != userId) throw new Exception("not your keep to delete.");
         _repo.DeleteKeep(id);
         return $"you have deleted your keep.";
+    }
+
+    internal List<Keep> getProflesKeeps(string id)
+    {
+        List<Keep> keeps = _repo.getProfilesKeeps(id);
+        if (keeps == null) throw new Exception("this profile has no keeps!!!");
+        return keeps;
     }
 }
