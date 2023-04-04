@@ -57,6 +57,23 @@ namespace KeeprCheckPoint.Repositories;
         return keeps;
     }
 
+    internal List<Vault> getMyVaults(string id)
+    {
+        string sql = @"
+        SELECT
+        v.*,
+        acct.*
+        FROM Vault v
+        JOIN accounts acct ON v.creatorId = acct.id
+        WHERE acct.id = @id;
+        ";
+        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, prof) => {
+            vault.creatorId = prof.Id;
+            return vault;
+        },new {id} ).ToList();
+        return vaults;
+    }
+
     internal Vault GetVaultById(int id)
     {
         String sql = @"

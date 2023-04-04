@@ -94,3 +94,11 @@ WHERE k.id = 62;
         JOIN accounts acct ON k.creatorId = acct.id
         WHERE k.id = 63
         GROUP BY k.id;
+
+
+                SELECT
+        v.*,
+        acct.*
+        FROM Vault v
+        JOIN accounts acct ON v.creatorId = acct.id
+        WHERE acct.id = '63ff8ac3c39301e47e7784ee';

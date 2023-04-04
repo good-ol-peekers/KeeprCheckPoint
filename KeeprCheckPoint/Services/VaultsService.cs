@@ -31,6 +31,12 @@ public VaultsService(VaultsRepository repo)
         return keeps;
     }
 
+    internal List<Vault> getMyVaults(string id)
+    {
+        List<Vault> vaults = _repo.getMyVaults(id);
+        return vaults;
+    }
+
     internal Vault GetVaultById(int id, string userId)
     {
         Vault vault = _repo.GetVaultById(id);
