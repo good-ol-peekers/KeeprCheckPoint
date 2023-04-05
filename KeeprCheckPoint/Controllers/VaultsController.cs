@@ -68,9 +68,9 @@ public async Task<ActionResult<Vault>> UpdateVault([FromBody] Vault vaultData, i
   try 
   {
     Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-    vaultData.creatorId = userInfo.Id;
-    vaultData.id = id;
-    Vault vault = _vaultsService.UpdateVault(vaultData);
+    // vaultData.creatorId = userInfo.Id;
+    // vaultData.id = id;
+    Vault vault = _vaultsService.UpdateVault(vaultData, id, userInfo.Id);
     return Ok(vault);
   }
   catch (Exception e)

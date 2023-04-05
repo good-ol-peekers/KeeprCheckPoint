@@ -54,10 +54,10 @@ public VaultsService(VaultsRepository repo)
         return vault;
     }
 
-    internal Vault UpdateVault(Vault vaultData)
+    internal Vault UpdateVault(Vault vaultData, int id, string userId)
     {
-        Vault original = _repo.GetVaultById(vaultData.id);
-        if (vaultData.creatorId != original.creatorId) throw new Exception($"thats not yours to edit");
+        Vault original = _repo.GetVaultById(id);
+        if (original.creatorId != userId) throw new Exception($"thats not yours to edit");
         original.description = vaultData.description != null ? vaultData.description : original.description;
         original.img = vaultData.img != null ? vaultData.img : original.img;
         original.isPrivate = vaultData.isPrivate != null ? vaultData.isPrivate : original.isPrivate;

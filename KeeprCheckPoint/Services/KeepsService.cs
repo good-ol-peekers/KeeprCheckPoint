@@ -1,6 +1,6 @@
 
 namespace KeeprCheckPoint.Services;
-    public class KeepsService
+public class KeepsService
 {
     private readonly KeepsRepository _repo;
     public KeepsService(KeepsRepository repo)
@@ -22,10 +22,12 @@ namespace KeeprCheckPoint.Services;
         return keeps;
     }
 
-    internal Keep UpdateKeep(Keep keepData, string userId)
+    internal Keep UpdateKeep(Keep keepData, string userId, int id)
     {
-        Keep original = this.GetOne(keepData.id, keepData.creatorId);
-        if(keepData.creatorId != original.creatorId) throw new Exception($"thats not yours to edit");
+        Keep original = this.GetOne(id, userId);
+
+        if (original.creatorId != userId) throw new Exception($"thats not yours to edit");
+
         original.name = keepData.name == null ? original.name : keepData.name;
         original.description = keepData.description != null ? keepData.description : original.description;
         original.img = keepData.img != null ? keepData.img : original.img;
@@ -35,13 +37,19 @@ namespace KeeprCheckPoint.Services;
 
     }
 
-    internal Keep GetOne(int id, string creatorId)
+    internal Keep GetOne(int id, string userId)
     {
         Keep keep = _repo.GetOneKeep(id);
+
         if (keep == null) throw new Exception($"no keep at the id; {id}");
-        if (keep.creatorId != creatorId)
-        keep.views++;
-        _repo.UpdateKeep(keep);
+        // if (keep.creatorId != userId) throw new Exception("you cant edit this");
+
+        
+            if (keep.creatorId != userId)
+                keep.views++;
+            _repo.UpdateKeep(keep);
+        
+
         return keep;
     }
 

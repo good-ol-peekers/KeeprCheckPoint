@@ -42,6 +42,7 @@
                   <div class="fs-1"></div>
                   <h6 class="mb-3">{{ keep.description }}</h6>
                   
+                  <router-link class="selectable" :to="{ name: 'Profile', params: { profileId: keep.creatorId } }" >
                   <div class="row mt-2">
                     <div class="text-end">
                       <img class="col-1 tinyPic img-fluid rounded-circle" :src="keep?.creator.picture" alt="">
@@ -50,7 +51,7 @@
                       </div>
                     </div>
                   </div>
-                  
+                  </router-link>
                   
                 </div>
               </div>

@@ -1,15 +1,21 @@
 <template>
 
-        <div  data-bs-toggle="modal" data-bs-target="#exampleModal" class="hero-image">
-
-            <img class="img-fluid backgroundimg" :src="keep.img" alt="">
 
 
-            <div class="fs-5 textStyle">{{ keep.name }}</div>
-            <img class="imageStyle img-fluid" :src="keep.creator.picture" alt="">
+<div class="hero-image">
+
+    <div  data-bs-toggle="modal" data-bs-target="#exampleModal" >       
+        <img class="img-fluid backgroundimg" :src="keep.img" alt="">    
+        <div class="fs-5 textStyle">{{ keep.name }}</div>
+    </div>
+
+    <router-link class="selectable" :to="{ name: 'ProfileDetails', params: { profileId: keep.creatorId}}" >
+        <img class="imageStyle" :src="keep.creator.picture" alt="">
+    </router-link>
+
+</div>
 
 
-        </div>
 </template>
 
 
@@ -52,7 +58,6 @@ export default {
     border-radius: 100%;
     position: absolute;
     transform: translate(-120%, 10%);
-
 }
 
 .backgroundimg {

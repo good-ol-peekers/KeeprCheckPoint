@@ -21,7 +21,7 @@ internal VaultKeep Create(VaultKeep vaultKeepData)
 
     internal string Delete(int id, string userId)
     {   Vault vault = _vaultsService.GetVaultById(id, userId);
-    // if (vault.creatorId != userId) throw new Exception($"thats not yours to delete");
+    if (vault.creatorId != userId) throw new Exception($"thats not yours to delete");
 
         int rows = _repo.Delete(id, userId);
         return $"that vaultkeep has been deleted";
