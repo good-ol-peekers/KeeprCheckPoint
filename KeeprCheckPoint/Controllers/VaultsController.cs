@@ -19,7 +19,7 @@ public async Task<ActionResult<List<KeepInVault>>> getAllKeepsInAVault(int id)
   try 
   {
     Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-    List<KeepInVault> keeps = _vaultsService.getAllKeepsInAVault(id, userInfo.Id);
+    List<KeepInVault> keeps = _vaultsService.getAllKeepsInAVault(id, userInfo?.Id);
     return Ok(keeps);
   }
   catch (Exception e)

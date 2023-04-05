@@ -77,15 +77,16 @@ namespace KeeprCheckPoint.Repositories;
         return vaults;
     }
 
-    internal List<Vault> getProfilesVaults(string id)
+    internal List<Vault> getProfilesVaults(string id, string userId)
     {
         string sql = @"
         SELECT
-        *
-        FROM Vault v
-        WHERE v.creatorId = @id
+        v.*,
+        acct.*
+        FROM Vault v AND account acct
+        WHERE v.creatorId = @id AND acct.id = &userId;
         ";
-        return _db.Query<Vault>(sql, new { id }).ToList();
+        return _db.Query<Vault>(sql, new { id, userId }).ToList();
     }
 
     internal Vault GetVaultById(int id)

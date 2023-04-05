@@ -19,11 +19,13 @@ namespace KeeprCheckPoint.Controllers;
     }
 
     [HttpGet("{id}/vaults")]
-    public ActionResult<List<Vault>> getProfilesVaults(string id)
+    async public Task<ActionResult<List<Vault>>> getProfilesVaults(string id)
     {
         try 
         {
-            List<Vault> vault = _vaultsService.getProfilesVaults(id);
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+            List<Vault> vault = _vaultsService.getProfilesVaults(id, userInfo.Id);
         return Ok(vault);
         }
         catch (Exception e)

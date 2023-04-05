@@ -77,11 +77,22 @@ public Keep create(Keep keepData)
     {
         string sql = @"
         SELECT
-        *
+        k.*,
+        COUNT(vk.id) AS kept,
+        acct.*
         FROM Keep k
+        LEFT JOIN VaultKeep vk ON k.id = vk.keepId
+        JOIN accounts acct ON k.creatorId = acct.id
         WHERE k.creatorId = @id
+        GROUP BY k.id;
         ";
-        return _db.Query<Keep>(sql, new { id }).ToList();
+        List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, (keep, creator) =>
+        {
+            keep.creator = creator;
+            keep.creatorId = creator.Id;
+            return keep;
+        }, new { id }).ToList();
+        return keeps;
     }
 
     internal int UpdateKeep(Keep keepData)

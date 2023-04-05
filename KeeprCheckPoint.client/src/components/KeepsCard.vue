@@ -1,21 +1,16 @@
 <template>
+    <div class="hero-image">
 
+        <div data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img class="img-fluid backgroundimg" :src="keep.img" alt="">
+            <div class="fs-5 textStyle">{{ keep.name }}</div>
 
+            <router-link :to="{ name: 'ProfileDetails', params: { profileId: keep.creatorId } }">
+                <img class="imageStyle" :src="keep.creator.picture" alt="">
+            </router-link>
+        </div>
 
-<div class="hero-image">
-
-    <div  data-bs-toggle="modal" data-bs-target="#exampleModal" >       
-        <img class="img-fluid backgroundimg" :src="keep.img" alt="">    
-        <div class="fs-5 textStyle">{{ keep.name }}</div>
     </div>
-
-    <router-link class="selectable" :to="{ name: 'ProfileDetails', params: { profileId: keep.creatorId}}" >
-        <img class="imageStyle" :src="keep.creator.picture" alt="">
-    </router-link>
-
-</div>
-
-
 </template>
 
 
@@ -42,7 +37,7 @@ export default {
             //         await keepsService.GetKeepByID(id)
             //     } catch (error) {
             //         Pop.error(error.message)
-                    
+
             //     }
             // }
         }

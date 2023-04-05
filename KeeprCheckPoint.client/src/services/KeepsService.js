@@ -17,6 +17,12 @@ async GetKeepByID(id){
     const res = await api.get('api/keeps/' + id)
     // logger.log(res.data)
     AppState.keep = res.data
+
+}
+
+async GetProfileKeepByID(id){
+    const res = await api.get('api/keeps/' + id)
+    AppState.profileKeep = res.data
 }
 
 async deleteKeep(keepId){

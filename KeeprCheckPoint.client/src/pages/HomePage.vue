@@ -13,7 +13,7 @@
   </div>
 
 
-   
+
 
   <div v-if="keeps" class="bricks">
     <div v-for="k in keeps">
@@ -42,7 +42,7 @@
                   <div class="fs-1"></div>
                   <h6 class="mb-3">{{ keep.description }}</h6>
                   
-                  <router-link class="selectable" :to="{ name: 'Profile', params: { profileId: keep.creatorId } }" >
+                  <router-link class="selectable" :to="{ name: 'ProfileDetails', params: { profileId: keep.creatorId } }" >
                   <div class="row mt-2">
                     <div class="text-end">
                       <img class="col-1 tinyPic img-fluid rounded-circle" :src="keep?.creator.picture" alt="">

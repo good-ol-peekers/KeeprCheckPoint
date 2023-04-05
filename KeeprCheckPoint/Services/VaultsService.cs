@@ -29,7 +29,6 @@ public VaultsService(VaultsRepository repo)
     {   Vault vault = _repo.GetVaultById(id);
         if (vault.creatorId != userId && vault.isPrivate == true) throw new Exception ("thats not your vault to be peepin");
         List<KeepInVault> keeps = _repo.getAllKeepsInAVault(id);
-        // if (keeps.isPrivate == true && keeps.creatorId != userId) throw new Exception("thats not your Vault to be peepin in yo!");
         return keeps;
     }
 
@@ -39,10 +38,11 @@ public VaultsService(VaultsRepository repo)
         return vaults;
     }
 
-    internal List<Vault> getProfilesVaults(string id)
+    internal List<Vault> getProfilesVaults(string id, string userId)
     {   
-        List<Vault> vaults = _repo.getProfilesVaults(id);
+        List<Vault> vaults = _repo.getProfilesVaults(id, userId);
         if (vaults == null) throw new Exception("this profile has no vaults!");
+        // if (vaults.creatorId != userId && vaults.isPrivate == true) throw new Exception("thats not your vault to be peepin");
         return vaults;
     }
 
