@@ -3,7 +3,7 @@ namespace KeeprCheckPoint.Repositories;
 
 
 
-    public class VaultsRepository
+public class VaultsRepository
 {
     private readonly IDbConnection _db;
     public VaultsRepository(IDbConnection db)
@@ -70,10 +70,11 @@ namespace KeeprCheckPoint.Repositories;
         JOIN accounts acct ON v.creatorId = acct.id
         WHERE acct.id = @id;
         ";
-        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, prof) => {
+        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vault, prof) =>
+        {
             vault.creatorId = prof.Id;
             return vault;
-        },new {id} ).ToList();
+        }, new { id }).ToList();
         return vaults;
     }
 
@@ -99,11 +100,12 @@ namespace KeeprCheckPoint.Repositories;
         JOIN accounts acct ON v.creatorId = acct.id
         WHERE v.id = @id;
         ";
-        Vault vault = _db.Query<Vault, Profile, Vault>(sql, (vault, creator) => {
+        Vault vault = _db.Query<Vault, Profile, Vault>(sql, (vault, creator) =>
+        {
             vault.creatorId = creator.Id;
             vault.creator = creator;
             return vault;
-        }, new {id}).FirstOrDefault();
+        }, new { id }).FirstOrDefault();
         return vault;
     }
 

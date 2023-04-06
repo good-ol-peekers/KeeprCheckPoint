@@ -2,7 +2,7 @@
 namespace KeeprCheckPoint.Models;
 
 
-    public class Vault
+public class Vault
 {
     public int id { get; set; }
     public string creatorId { get; set; }

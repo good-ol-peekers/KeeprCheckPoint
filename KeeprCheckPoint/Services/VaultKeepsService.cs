@@ -19,12 +19,12 @@ public class VaultKeepsService
         return vaultKeep;
     }
 
-    internal string Delete(int id, string userId)
+    internal string Delete(int vaultKeepId, string userId)
     {
-        Vault vault = _vaultsService.GetVaultById(id, userId);
+        Vault vault = _vaultsService.GetVaultById(vaultKeepId, userId); //FIXME nope dont worry about the vault here.... you dont need it
         if (vault.creatorId != userId) throw new Exception($"thats not yours to delete");
 
-        int rows = _repo.Delete(id, userId);
+        int rows = _repo.Delete(vaultKeepId, userId);
         return $"that vaultkeep has been deleted";
     }
 }
