@@ -21,7 +21,7 @@ public class VaultKeepsService
 
     internal string Delete(int vaultKeepId, string userId)
     {
-        Vault vault = _vaultsService.GetVaultById(vaultKeepId, userId); //FIXME nope dont worry about the vault here.... you dont need it
+        Vault vault = _repo.GetVaultKeepById(vaultKeepId, userId); //FIXME nope dont worry about the vault here.... you dont need it
         if (vault.creatorId != userId) throw new Exception($"thats not yours to delete");
 
         int rows = _repo.Delete(vaultKeepId, userId);

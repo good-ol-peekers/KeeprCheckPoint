@@ -84,11 +84,19 @@ public class VaultsRepository
         SELECT
         v.*,
         acct.*
-        FROM Vault v AND account acct
-        WHERE v.creatorId = @id AND acct.id = &userId;
+        FROM Vault v
+        JOIN accounts acct ON v.creatorId = acct.id
+        WHERE v.creatorId = @id;
         ";
-        return _db.Query<Vault>(sql, new { id, userId }).ToList();
+        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vaults, acct) =>
+       {
+           vaults.creatorId = acct.Id;
+           vaults.creator = acct;
+           return vaults;
+       }, new { id }).ToList();
+        return vaults;
     }
+        // return _db.Query<Vault>(sql, new { id, userId }).ToList();
 
     internal Vault GetVaultById(int id)
     {

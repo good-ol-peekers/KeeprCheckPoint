@@ -31,7 +31,7 @@ public class KeepsService
         original.name = keepData.name == null ? original.name : keepData.name;
         original.description = keepData.description != null ? keepData.description : original.description;
         original.img = keepData.img != null ? keepData.img : original.img;
-        // original.kept = keepData.kept != null ? keepData.kept : original.kept;
+        original.views = keepData.views != null ? keepData.views : original.views;
         _repo.UpdateKeep(original);
         return original;
 

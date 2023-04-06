@@ -103,7 +103,8 @@ public class KeepsRepository
         SET
         name = @name,
         description = @description,
-        img = @img
+        img = @img,
+        views = @views
         WHERE id = @id;
         ";
         int rows = _db.Execute(sql, keepData);

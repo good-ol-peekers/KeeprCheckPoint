@@ -25,8 +25,8 @@ namespace KeeprCheckPoint.Controllers;
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
 
-            List<Vault> vault = _vaultsService.getProfilesVaults(id, userInfo.Id);
-        return Ok(vault);
+            List<Vault> vaults = _vaultsService.getProfilesVaults(id, userInfo?.Id);
+        return Ok(vaults);
         }
         catch (Exception e)
         {

@@ -61,6 +61,21 @@ Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
 
+        SELECT
+        v.*,
+        acct.*
+        FROM Vault v
+        JOIN accounts acct ON v.creatorId = acct.id
+        WHERE v.id = 2;
+        
+
+
+
+
+
+
+
+
 INSERT INTO VaultKeep
 (creatorId, vaultId, keepId)
 VALUES
@@ -126,3 +141,11 @@ WHERE k.id = 62;
 DROP table `VaultKeep`;
 DROP table `Vault`;
 DROP table `Keep`;
+
+
+ SELECT
+        v.*,
+        acct.*
+        FROM Vault v
+        JOIN accounts acct ON v.creatorId = acct.id
+        WHERE v.creatorId = acct.id AND v.id = 2;

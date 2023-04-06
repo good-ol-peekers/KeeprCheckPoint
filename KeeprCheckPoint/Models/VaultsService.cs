@@ -38,13 +38,36 @@ public VaultsService(VaultsRepository repo)
         return vaults;
     }
 
-    internal List<Vault> getProfilesVaults(string id, string userId)
-    {   
-        List<Vault> vaults = _repo.getProfilesVaults(id, userId);
-        if (vaults == null) throw new Exception("this profile has no vaults!");
-        // if (vaults.creatorId != userId && vaults.isPrivate == true) throw new Exception("thats not your vault to be peepin");
-        return vaults;
+    // internal List<Vault> getProfilesVaults(string id, string userId)
+    // {   
+    //     List<Vault> vaults = _repo.getProfilesVaults(id, userId);
+    //     if (vaults == null) throw new Exception("this profile has no vaults!");
+    //     return vaults;
+
+        internal List<Vault> getProfilesVaults(string id, string userId)
+        {
+            List<Vault> vaults = _repo.getProfilesVaults(id, userId);
+            if (vaults == null) throw new Exception("this profile has no vaults!");
+            // return vaults;
+        foreach (Vault vault in vaults)
+        {
+            if(vault.creatorId != userId && vault.isPrivate == true) throw new Exception("thats not your vault to be peeking in yo!");
+            return vaults;
+        }
+            return vaults;
     }
+
+
+
+        // if (vaults.creatorId != userId && vaults.isPrivate == true) throw new Exception("thats not your vault to be peepin");
+
+
+
+        // foreach (Vault vault in vaults)
+        // {
+        //     if(vault.creatorId != userId && vault.isPrivate == true) throw new Exception("thats not your vault to be peeking in yo!");
+        //     return vaults
+        // }
 
     internal Vault GetVaultById(int id, string userId)
     {

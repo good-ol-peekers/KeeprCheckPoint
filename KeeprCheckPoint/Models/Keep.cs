@@ -13,7 +13,7 @@ namespace KeeprCheckPoint.Models;
 
     public string img { get; set; }
 
-    public int views { get; set; } = 0;
+    public int? views { get; set; } = 0;
 
     public int kept { get; set; } = 0;
 

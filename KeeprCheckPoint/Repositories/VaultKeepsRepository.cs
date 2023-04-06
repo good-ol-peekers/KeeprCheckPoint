@@ -35,8 +35,21 @@ public VaultKeep Create(VaultKeep vaultKeepData)
         return rows;
     }
 
-    internal VaultKeep GetOne(int id)
+    // internal VaultKeep GetOne(int id)
+    // {
+    //     throw new NotImplementedException();
+    // }
+
+    internal Vault GetVaultKeepById(int vaultKeepId, string userId)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        SELECT
+        v.*
+        FROM VaultKeep v
+        WHERE
+        v.id = @vaultKeepId AND v.creatorId = @userId;
+        ";
+        Vault vault = _db.Query<Vault>(sql, new { vaultKeepId, userId }).FirstOrDefault(); 
+        return vault;
     }
 }
