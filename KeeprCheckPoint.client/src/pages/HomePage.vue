@@ -1,45 +1,40 @@
 <template>
-  <div v-if="account?.id" class="container-fluid">
+  <div class="container-fluid">
     <div class="row">
-      <div  class="col-12 mb-3 d-flex justify-content-around">
-        <button class="btn btn-outline-success button1" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-          Create a Keep <i class="mdi mdi-plus"></i>
-        </button>
-
-        <button class="btn btn-outline-success button1" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Create a Vault <i
-            class="mdi mdi-plus"></i></button>
-
+      <div class="col-md-6-block">
+        <div v-if="keeps" class="bricks">
+          <div v-for="k in keeps">
+            <div>
+              <KeepsCard @click="GetKeepByID(k.id)" :keep="k" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-
-
-
-  <div v-if="keeps" class="bricks">
-    <div v-for="k in keeps">
-      <div>
-        <KeepsCard @click="GetKeepByID(k.id)" :keep="k" />
-      </div>
-    </div>
-  </div>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div v-if="keep">
 
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ keep?.name }}</h1>
-            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"><i
-                class="mdi mdi-close-box-multiple-outline"></i></button>
-          </div>
+          <!-- <div class="modal-header">
+            
+          </div> -->
+
           <div class="modal-body row">
-            <div  class="col-6"> <img class="img-fluid modal-img" :src="keep.img" alt=""> <button   v-if="account?.id == keep.creatorId"  type="button"
-                data-bs-dismiss="modal" @click="deleteKeep(keep.id)" class="modal-button-trash btn btn-outline-danger"><i
-                  class="mdi mdi-trash-can-outline"></i></button> </div>
+            <h1 class="modal-title fs-5 col-6" id="exampleModalLabel">{{ keep?.name }}</h1>
+            <div class="col-2 d-flex justify-content-end">
+
+              <button type="button" class="button1 btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"><i
+                class="mdi mdi-close-box-multiple-outline"></i>Close</button>
+                
+              </div>
+            <div class="col-6"> <img class="img-fluid modal-img" :src="keep.img" alt=""> <button
+                v-if="account?.id == keep.creatorId" type="button" data-bs-dismiss="modal" @click="deleteKeep(keep.id)"
+                class="modal-button-trash btn btn-outline-danger"><i class="mdi mdi-trash-can-outline"></i></button>
+            </div>
             <div class="col-6">
               <div class="fs-1 mb-5 text-center">{{ keep.kept }} <i class="mdi mdi-archive"></i> {{ keep.views }} <i
                   class="mdi mdi-eye"> </i> </div>

@@ -1,14 +1,16 @@
 <template>
-    <div class="hero-image">
+    <div class="hero-image mb-2 mx-2">
 
         <div data-bs-toggle="modal" data-bs-target="#exampleModal">
             <img class="img-fluid backgroundimg" :src="keep.img" alt="">
             <div class="fs-5 textStyle">{{ keep.name }}</div>
 
-            <router-link :to="{ name: 'ProfileDetails', params: { profileId: keep.creatorId } }">
-                <img class="imageStyle" :src="keep.creator.picture" alt="">
-            </router-link>
         </div>
+        <router-link :to="{ name: 'ProfileDetails', params: { profileId: keep.creatorId } }">
+            <div typeof="button" data-bs-dismiss="modal">
+                <img class="imageStyle" :src="keep.creator.picture" alt="">
+            </div>
+        </router-link>
 
     </div>
 </template>
@@ -48,20 +50,21 @@ export default {
 
 <style lang="scss" scoped>
 .imageStyle {
-    height: 7vh;
-    width: auto;
+    height: 5vh;
+    width: 5vh;
     border-radius: 100%;
+    transform: translate(550%, -86%);
     position: absolute;
-    transform: translate(-120%, 10%);
 }
 
 .backgroundimg {
     border-radius: 5%;
+    position: relative;
 }
 
 .textStyle {
     // text-align: end;
-    text-shadow: 5px 5px 5px black;
+    text-shadow: 1px 1px 1px black;
     color: rgb(238, 229, 213);
     position: absolute;
     transform: translate(10%, -120%);
@@ -72,7 +75,7 @@ export default {
     position: relative;
     background-position: center;
     background-size: cover;
-    box-shadow: 5px 5px 5px black;
+    box-shadow: 10px 5px 5px black;
     border-radius: 5%;
 }
 </style>

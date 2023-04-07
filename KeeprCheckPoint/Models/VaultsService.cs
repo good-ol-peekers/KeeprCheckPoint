@@ -2,11 +2,11 @@
 namespace KeeprCheckPoint.Services;
 
 
-    public class VaultsService
+public class VaultsService
 {
 
-private readonly VaultsRepository _repo;
-public VaultsService(VaultsRepository repo)
+    private readonly VaultsRepository _repo;
+    public VaultsService(VaultsRepository repo)
     {
         _repo = repo;
     }
@@ -26,8 +26,9 @@ public VaultsService(VaultsRepository repo)
     }
 
     internal List<KeepInVault> getAllKeepsInAVault(int id, string userId)
-    {   Vault vault = _repo.GetVaultById(id);
-        if (vault.creatorId != userId && vault.isPrivate == true) throw new Exception ("thats not your vault to be peepin");
+    {
+        Vault vault = _repo.GetVaultById(id);
+        if (vault.creatorId != userId && vault.isPrivate == true) throw new Exception("thats not your vault to be peepin");
         List<KeepInVault> keeps = _repo.getAllKeepsInAVault(id);
         return keeps;
     }
@@ -44,36 +45,37 @@ public VaultsService(VaultsRepository repo)
     //     if (vaults == null) throw new Exception("this profile has no vaults!");
     //     return vaults;
 
-        internal List<Vault> getProfilesVaults(string id, string userId)
-        {
-            List<Vault> vaults = _repo.getProfilesVaults(id, userId);
-            if (vaults == null) throw new Exception("this profile has no vaults!");
-            // return vaults;
-        foreach (Vault vault in vaults)
-        {
-            if(vault.creatorId != userId && vault.isPrivate == true) throw new Exception("thats not your vault to be peeking in yo!");
-            return vaults;
-        }
-            return vaults;
+    internal List<Vault> getProfilesVaults(string id, string userId)
+    {
+        List<Vault> vaults = _repo.getProfilesVaults(id, userId);
+        if (vaults == null) throw new Exception("this profile has no vaults!");
+        vaults.RemoveAll(v => v.isPrivate == true && v.creatorId != userId);
+        // return vaults;
+        // foreach (Vault vault in vaults)
+        // {
+        //     if (vault.creatorId != userId && vault.isPrivate == true) throw new Exception("thats not your vault to be peeking in yo!");
+        //     return vaults;
+        // }
+        return vaults;
     }
 
 
 
-        // if (vaults.creatorId != userId && vaults.isPrivate == true) throw new Exception("thats not your vault to be peepin");
+    // if (vaults.creatorId != userId && vaults.isPrivate == true) throw new Exception("thats not your vault to be peepin");
 
 
 
-        // foreach (Vault vault in vaults)
-        // {
-        //     if(vault.creatorId != userId && vault.isPrivate == true) throw new Exception("thats not your vault to be peeking in yo!");
-        //     return vaults
-        // }
+    // foreach (Vault vault in vaults)
+    // {
+    //     if(vault.creatorId != userId && vault.isPrivate == true) throw new Exception("thats not your vault to be peeking in yo!");
+    //     return vaults
+    // }
 
     internal Vault GetVaultById(int id, string userId)
     {
         Vault vault = _repo.GetVaultById(id);
         if (vault == null) throw new Exception($"there is no vault at ID: {id}");
-        if (vault.isPrivate == true && vault.creatorId != userId) throw new Exception ($"hey that vaults private get out outta here at {id}");
+        if (vault.isPrivate == true && vault.creatorId != userId) throw new Exception($"hey that vaults private get out outta here at {id}");
         return vault;
     }
 

@@ -42,12 +42,10 @@ public class KeepsService
         Keep keep = _repo.GetOneKeep(id);
 
         if (keep == null) throw new Exception($"no keep at the id; {id}");
-        // if (keep.creatorId != userId) throw new Exception("you cant edit this");
-
-        
-            if (keep.creatorId != userId)
-                keep.views++;
-            _repo.UpdateKeep(keep);
+        if (keep.creatorId != userId)
+        { keep.views++;
+        _repo.UpdateKeep(keep);
+        }
         
 
         return keep;
