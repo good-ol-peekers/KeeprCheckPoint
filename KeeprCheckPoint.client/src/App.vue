@@ -1,7 +1,7 @@
 <template>
   <header>
     <!-- <Navbar /> -->
-    <div class="container-fluid bg-dark text-white">
+    <div class="container-fluid bg-light">
       <div class="row">
         <div class="col-12 d-flex justify-content-between ">
           <div v-if="account?.id">
@@ -18,8 +18,8 @@
 </div>
             <router-link :to="{ name: 'Home' }" class="selectable text-uppercase" aria-controls="Navigate to Home">
             
-              <p class="text-center fs-4 p-2 mt-3" title="Keepr">
-                Keeper CheckPoint WITH styles lol.
+              <p class="text-center fs-4 p-2 mt-3" title="the keepr co.">
+                the keepr co.
               </p>
             </router-link>
 
@@ -36,7 +36,7 @@
     <router-view />
   </main>
   <footer class="text-center footerStyle">
-    re done by thomas for checkbox clout dawggy G
+    Made by Thomas Peek <a href="https://github.com/good-ol-peekers"><img class="m-2 img-fluid githubImg" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt=""></a>
   </footer>
 </template>
 
@@ -77,9 +77,13 @@ export default {
   background-color: aqua;
   text-shadow: 2px 2px 2px black;
   font-size: large;
+  height: 8vh;
 
 }
-
+.githubImg{
+  height: 6vh;
+  width: auto;
+}
 // footer {
 //   // display: grid;
 //   place-content: center;
